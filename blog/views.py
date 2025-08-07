@@ -58,41 +58,41 @@ def detail(request, post_id):
         "related_posts": related_posts})
 
 
-# def set_rating(request, value, post_id):
-#     post = Post.objects.get(id=post_id)
-#     value = int(value)
-#     # print(post, value)
-#     if all([post, value]):
-#         Rating.objects.create(
-#             post=post,
-#             value=value
-#         )
-#         messages.add_message(request, messages.SUCCESS, "Rating set")
-#     else:
-#         messages.add_message(request, messages.WARNING, "Rating not set")
-#
-#     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-#
-#
-# def category_list(request, category_slug):
-#     category = Category.objects.get(slug=category_slug)
-#     posts = Post.objects.filter(category=category)
-#     last_comments = Comment.objects.all().order_by("-id")[:10]
-#
-#     paginator = Paginator(posts, 3)
-#     page_number = request.GET.get("page")
-#     page_obj = paginator.get_page(page_number)
-#
-#     return render(request, "index.html", context={"page_obj": page_obj, "last_comments": last_comments})
-#
-#
-# def search(request):
-#     last_comments = Comment.objects.all().order_by("-id")[:10]
-#     query = request.GET.get("query")
-#     posts = Post.objects.filter(title__icontains=query)
-#
-#     paginator = Paginator(posts, 3)
-#     page_number = request.GET.get("page")
-#     page_obj = paginator.get_page(page_number)
-#
-#     return render(request, "index.html", context={"page_obj": page_obj, "last_comments": last_comments})
+def set_rating(request, value, post_id):
+    post = Post.objects.get(id=post_id)
+    value = int(value)
+    # print(post, value)
+    if all([post, value]):
+        Rating.objects.create(
+            post=post,
+            value=value
+        )
+        messages.add_message(request, messages.SUCCESS, "Rating set")
+    else:
+        messages.add_message(request, messages.WARNING, "Rating not set")
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def category_list(request, category_slug):
+    category = Category.objects.get(slug=category_slug)
+    posts = Post.objects.filter(category=category)
+    last_comments = Comment.objects.all().order_by("-id")[:10]
+
+    paginator = Paginator(posts, 3)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "index.html", context={"page_obj": page_obj, "last_comments": last_comments})
+
+
+def search(request):
+    last_comments = Comment.objects.all().order_by("-id")[:10]
+    query = request.GET.get("query")
+    posts = Post.objects.filter(title__icontains=query)
+
+    paginator = Paginator(posts, 3)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "index.html", context={"page_obj": page_obj, "last_comments": last_comments})
